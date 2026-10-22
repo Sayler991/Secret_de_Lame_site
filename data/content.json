@@ -3,7 +3,7 @@
   "nom": "Secret de Lame",
   "accroche": "Salon de coiffure mixte & barbier à Teillé",
   "presentation": "Au salon Secret de Lame, Émilie et son équipe vous proposent une véritable immersion bien-être : chaque forfait shampoing-coupe-brushing inclut un massage. Couleurs réalisées avec les produits TIGI. Femmes, hommes, enfants, barbe : tout le monde est bienvenu, avec ou sans rendez-vous.",
-  "adresse": "77 rue du Haut Bourg, 44440 Teillé",
+  "adresse": "73 rue du Haut Bourg, 44440 Teillé",
   "telephone": "02 40 80 45 29",
   "reservation": "https://www.planity.com/secret-de-lame-44440-teille",
   "facebook": "https://facebook.com/717741314907688",
@@ -285,7 +285,18 @@
      }
     ]
    }
-  ]
+  ],
+  "google": [
+   {
+    "titre": "Devant le salon",
+    "pano": "qfMRBbbN6eDsamnCNG48Aw"
+   },
+   {
+    "titre": "À l'intérieur",
+    "pano": "CIHM0ogKEICAgIC-mNmkIgE"
+   }
+  ],
+  "credit": "Visite 360° © PANORAMICTOUR Bruno Bertini via Google"
  },
  "equipe_note": "Prénoms tels qu'affichés sur Planity (octobre 2026).",
  "equipe": [
@@ -313,6 +324,20 @@
    "nom": "Jade",
    "role": "",
    "photo": ""
+  }
+ ],
+ "equipe_photos": [
+  {
+   "src": "img/equipe1.jpg",
+   "legende": "L'équipe au salon"
+  },
+  {
+   "src": "img/equipe2.jpg",
+   "legende": "L'équipe en rouge et noir"
+  },
+  {
+   "src": "img/equipe3.jpg",
+   "legende": "L'équipe devant le salon"
   }
  ]
 }
