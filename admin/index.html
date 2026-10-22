@@ -1,0 +1,49 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — Secret de Lame</title><meta name="robots" content="noindex">
+<style>body{font:15px Inter,system-ui,sans-serif;max-width:900px;margin:auto;padding:1rem;color:#141414}h1{font-weight:600}h2{color:#3f6b4a;border-bottom:1px solid #ddd;padding-bottom:.3rem;margin-top:2rem}
+label{display:block;font-size:.8rem;color:#555;margin-top:.6rem}input,textarea{width:100%;padding:.55rem;border:1px solid #ccc;border-radius:8px;font:inherit}textarea{min-height:90px}
+.card{border:1px solid #e3e3e3;border-radius:12px;padding:1rem;margin:.8rem 0}.row{display:flex;gap:.5rem;flex-wrap:wrap}.row>*{flex:1}
+button{background:#141414;color:#fff;border:0;border-radius:999px;padding:.6rem 1.2rem;cursor:pointer;margin:.3rem .3rem 0 0}button.g{background:#3f6b4a}button.l{background:#eee;color:#141414}
+.bar{position:sticky;top:0;background:#fff;padding:.6rem 0;border-bottom:1px solid #eee;z-index:5}#msg{font-size:.85rem;color:#3f6b4a}.tag{font-size:.75rem;background:#fde8c8;padding:.1rem .5rem;border-radius:99px}.ok{background:#e9f0ea}</style></head><body>
+<h1>Secret de Lame — administration</h1>
+<div class="card" id="cfg"><b>Connexion GitHub</b> (une seule fois sur cet appareil). Jeton « fine-grained » avec accès <i>Contents: Read and write</i> au dépôt uniquement.
+<div class="row"><div><label>Dépôt</label><input id="repo" value="Sayler991/Secret_de_Lame_site"></div><div><label>Jeton</label><input id="tok" type="password"></div></div><button onclick="saveCfg()">Enregistrer</button></div>
+<div class="bar"><button class="g" onclick="publish()">Publier les modifications</button><button class="l" onclick="dl()">Télécharger content.json</button> <span id="msg"></span></div>
+<h2>Salon</h2><div id="salon"></div>
+<h2>Visite 360°</h2><p>Pour chaque espace, envoyez une photo 360° <b>équirectangulaire</b> (format 2:1, ex. 5760×2880, export « 360 » de l'Insta360). Les flèches de navigation se règlent avec yaw (gauche/droite, −180 à 180) et pitch (haut/bas).</p><div id="scenes"></div><button class="l" onclick="addScene()">+ Ajouter un espace</button>
+<h2>L'équipe</h2><div id="equipe"></div><button class="l" onclick="D.equipe.push({nom:'',role:'',photo:''});render()">+ Ajouter une personne</button>
+<h2>Galerie</h2><div id="galerie"></div><label>Ajouter des photos</label><input type="file" accept="image/*" multiple onchange="addGal(this)">
+<h2>Avis</h2><div id="avis"></div><button class="l" onclick="D.avis.push({texte:'',source:''});render()">+ Ajouter un avis</button>
+<h2>Tarifs (JSON avancé)</h2><textarea id="tarifs" style="min-height:220px;font-family:monospace;font-size:.8rem"></textarea>
+<script>
+let D,uploads={};const $=id=>document.getElementById(id);
+$('repo').value=localStorage.sdlRepo||$('repo').value;$('tok').value=localStorage.sdlTok||'';
+function saveCfg(){localStorage.sdlRepo=$('repo').value;localStorage.sdlTok=$('tok').value;msg('Connexion enregistrée.')}
+const msg=t=>$('msg').textContent=t,esc=s=>(s??'').toString().replace(/"/g,'&quot;');
+const inp=(path,label,val,ta)=>`<label>${label}</label>${ta?`<textarea data-p="${path}">${val??''}</textarea>`:`<input data-p="${path}" value="${esc(val)}">`}`;
+const file=(path,label)=>`<label>${label}</label><input type="file" accept="image/*" data-f="${path}">`;
+function render(){const S=D.salon;
+$('salon').innerHTML=['nom','accroche','adresse','telephone','reservation','facebook','note'].map(k=>inp('salon.'+k,k,S[k])).join('')+inp('salon.presentation','présentation',S.presentation,1)+S.horaires.map((h,i)=>inp(`salon.horaires.${i}.1`,h[0],h[1])).join('');
+$('scenes').innerHTML=D.visite.scenes.map((s,i)=>`<div class="card ${s.panorama?'ok':''}"><b>${s.titre}</b> ${s.panorama?'✓ 360° en ligne':'<span class="tag">360° à capturer</span>'}<div class="row"><div>${inp(`visite.scenes.${i}.id`,'identifiant',s.id)}</div><div>${inp(`visite.scenes.${i}.titre`,'titre',s.titre)}</div></div>${inp(`visite.scenes.${i}.panorama`,'image 360 (chemin)',s.panorama)}${file(`visite.scenes.${i}.panorama`,'envoyer une photo 360°')}${inp(`visite.scenes.${i}.photo`,'photo classique de secours',s.photo)}
+<label>Flèches</label>${s.liens.map((l,j)=>`<div class="row">${['vers','texte','yaw','pitch'].map(k=>`<div>${inp(`visite.scenes.${i}.liens.${j}.${k}`,k,l[k])}</div>`).join('')}<button class="l" onclick="D.visite.scenes[${i}].liens.splice(${j},1);render()">×</button></div>`).join('')}
+<button class="l" onclick="D.visite.scenes[${i}].liens.push({vers:'',texte:'',yaw:0,pitch:-5});render()">+ flèche</button><button class="l" onclick="D.visite.premiere='${s.id}';render()">${D.visite.premiere==s.id?'★ espace de départ':'Définir comme départ'}</button><button class="l" onclick="D.visite.scenes.splice(${i},1);render()">Supprimer</button></div>`).join('');
+$('equipe').innerHTML=D.equipe.map((m,i)=>`<div class="card"><div class="row"><div>${inp(`equipe.${i}.nom`,'nom',m.nom)}</div><div>${inp(`equipe.${i}.role`,'rôle',m.role)}</div></div>${inp(`equipe.${i}.photo`,'photo (chemin)',m.photo)}${file(`equipe.${i}.photo`,'envoyer une photo')}<button class="l" onclick="D.equipe.splice(${i},1);render()">Supprimer</button></div>`).join('');
+$('galerie').innerHTML=D.galerie.map((g,i)=>`<div class="card row"><img src="../${g.src}" style="max-width:120px;flex:none;border-radius:8px"><div>${inp(`galerie.${i}.legende`,'légende',g.legende)}<button class="l" onclick="D.galerie.splice(${i},1);render()">Retirer</button></div></div>`).join('');
+$('avis').innerHTML=D.avis.map((a,i)=>`<div class="card">${inp(`avis.${i}.texte`,'texte',a.texte,1)}${inp(`avis.${i}.source`,'source',a.source)}<button class="l" onclick="D.avis.splice(${i},1);render()">Supprimer</button></div>`).join('');
+$('tarifs').value=JSON.stringify(D.tarifs,null,1);}
+function setP(p,v){const k=p.split('.');let o=D;k.slice(0,-1).forEach(x=>o=o[x]);const last=k.at(-1);o[last]=(last=='yaw'||last=='pitch')?+v:v}
+document.addEventListener('input',e=>{if(e.target.dataset.p)setP(e.target.dataset.p,e.target.value);if(e.target.id=='tarifs')try{D.tarifs=JSON.parse(e.target.value)}catch{}});
+const slug=n=>Date.now()+'-'+n.toLowerCase().replace(/[^a-z0-9.]+/g,'-');
+document.addEventListener('change',e=>{const f=e.target.dataset.f;if(!f||!e.target.files[0])return;const fl=e.target.files[0],path='img/'+slug(fl.name);uploads[path]=fl;setP(f,path);msg('Image prête : '+path+' (publiez pour l’envoyer)');render()});
+function addGal(el){[...el.files].forEach(fl=>{const p='img/'+slug(fl.name);uploads[p]=fl;D.galerie.push({src:p,legende:''})});render()}
+function addScene(){D.visite.scenes.push({id:'espace'+(D.visite.scenes.length+1),titre:'Nouvel espace',panorama:'',photo:'',liens:[]});render()}
+function dl(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,1)],{type:'application/json'}));a.download='content.json';a.click()}
+const b64=buf=>{let s='',u=new Uint8Array(buf);for(let i=0;i<u.length;i+=32768)s+=String.fromCharCode(...u.subarray(i,i+32768));return btoa(s)};
+async function put(path,content,m){const r=localStorage.sdlRepo,t=localStorage.sdlTok,url=`https://api.github.com/repos/${r}/contents/${path}`,h={Authorization:'Bearer '+t,Accept:'application/vnd.github+json'};
+ const cur=await fetch(url,{headers:h});const sha=cur.ok?(await cur.json()).sha:undefined;
+ const res=await fetch(url,{method:'PUT',headers:h,body:JSON.stringify({message:m,content,sha})});if(!res.ok)throw new Error(path+' : '+res.status)}
+async function publish(){if(!localStorage.sdlTok)return msg('Renseignez d’abord le jeton GitHub.');try{
+ for(const [p,f] of Object.entries(uploads)){msg('Envoi '+p+'…');await put(p,b64(await f.arrayBuffer()),'Admin : image '+p)}
+ msg('Enregistrement du contenu…');await put('data/content.json',btoa(unescape(encodeURIComponent(JSON.stringify(D,null,1)))),'Admin : mise à jour du contenu');uploads={};
+ msg('Publié ✓ — le site se met à jour en 1 à 2 minutes.')}catch(e){msg('Erreur : '+e.message)}}
+fetch('../data/content.json?'+Date.now()).then(r=>r.json()).then(j=>{D=j;D.equipe=D.equipe||[];render()});
+</script></body></html>

@@ -1,0 +1,38 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Secret de Lame — Coiffeur & barbier à Teillé</title>
+<meta name="description" content="Salon de coiffure mixte et barbier à Teillé (44). Visite immersive du salon, tarifs, horaires, réservation.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css">
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
+<link rel="stylesheet" href="style.css"></head><body>
+<header class="nav"><a href="#" class="logo">Secret <i>de</i> Lame</a>
+<nav><a href="#visite">Visite 360°</a><a href="#tarifs">Tarifs</a><a href="#equipe">L'équipe</a><a href="#infos">Infos</a></nav>
+<a class="btn sm" id="rdv1" target="_blank" rel="noopener">Réserver</a></header>
+
+<section class="hero"><div class="hero-img" id="heroImg"></div><div class="hero-txt">
+<p class="eyebrow">Teillé · Loire-Atlantique</p><h1 id="nom"></h1><p id="accroche" class="lead"></p>
+<div class="cta"><a class="btn" href="#visite">Entrer dans le salon</a><a class="btn ghost" id="rdv2" target="_blank" rel="noopener">Prendre rendez-vous</a></div>
+<p class="note" id="noteAvis"></p></div></section>
+
+<section class="intro wrap"><span class="leaf">❦</span><p id="presentation"></p></section>
+
+<section id="visite" class="wrap"><p class="eyebrow">Visite immersive</p><h2>Poussez la porte, faites le tour</h2>
+<p class="sub">Glissez pour tourner sur vous-même, touchez les flèches pour passer d'un espace à l'autre.</p>
+<div class="tour"><div id="pano"></div><div id="flat" class="flat"><img id="flatImg" alt=""><div class="badge">Photo 360° à capturer — aperçu en photo classique</div></div>
+<div class="tour-nav" id="tourNav"></div></div></section>
+
+<section id="galerie" class="wrap"><p class="eyebrow">En images</p><h2>L'ambiance du salon</h2><div class="grid" id="grid"></div></section>
+
+<section id="tarifs" class="band"><div class="wrap"><p class="eyebrow">Prestations</p><h2>Tarifs</h2><div class="tarifs" id="tarifsBox"></div><p class="small" id="tarifsNote"></p></div></section>
+
+<section id="equipe" class="wrap"><p class="eyebrow">Les mains derrière les ciseaux</p><h2>L'équipe</h2><div class="team" id="team"></div><p class="small" id="equipeNote"></p></section>
+
+<section id="avis" class="wrap"><p class="eyebrow">Ils en parlent</p><h2>Avis clients</h2><div class="avis" id="avisBox"></div></section>
+
+<section id="infos" class="band dark"><div class="wrap infos"><div><h2>Nous trouver</h2><p id="adresse"></p><p><a id="tel"></a></p><p><a id="fb" target="_blank" rel="noopener">Facebook</a></p><a class="btn light" id="rdv3" target="_blank" rel="noopener">Réserver en ligne</a></div>
+<div><h3>Horaires</h3><table id="horaires"></table></div>
+<iframe class="map" loading="lazy" title="Carte" src="https://www.google.com/maps?q=Secret+de+Lame+77+rue+du+Haut+Bourg+44440+Teill%C3%A9&output=embed"></iframe></div></section>
+<footer>© Secret de Lame · Teillé</footer>
+
+<div class="lb" id="lb"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédent">‹</button><img alt=""><p></p><button class="nx" aria-label="Suivant">›</button></div>
+<script src="app.js"></script></body></html>
