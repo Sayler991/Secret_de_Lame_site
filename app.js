@@ -4,7 +4,7 @@ $('nom').textContent=S.nom;$('accroche').textContent=S.accroche;$('presentation'
 ['rdv1','rdv2','rdv3'].forEach(i=>$(i).href=S.reservation);$('adresse').textContent=S.adresse;
 $('tel').textContent=S.telephone;$('tel').href='tel:'+S.telephone.replace(/\s/g,'');$('fb').href=S.facebook;
 $('horaires').innerHTML=S.horaires.map(h=>`<tr><td>${h[0]}</td><td>${h[1]}</td></tr>`).join('');
-$('heroImg').style.backgroundImage=`url(${(D.galerie[1]||D.galerie[0]).src})`;
+$('heroImg').src=(D.galerie[1]||D.galerie[0]).src;
 $('tarifsBox').innerHTML=D.tarifs.map(c=>`<article><h3>${c.cat}</h3><ul>${c.items.map(i=>`<li><span>${i[0]}</span><b>${i[1]}</b></li>`).join('')}</ul></article>`).join('');
 $('tarifsNote').textContent=D.tarifs_note||'';
 $('team').innerHTML=(D.equipe||[]).map(m=>`<div class="member"><div class="ph" style="${m.photo?`background-image:url(${m.photo})`:''}">${m.photo?'':m.nom[0]}</div><h3>${m.nom}</h3><p>${m.role||'&nbsp;'}</p></div>`).join('');

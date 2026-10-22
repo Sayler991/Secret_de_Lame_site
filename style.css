@@ -12,15 +12,15 @@ h2{font-size:clamp(2rem,5vw,3rem);margin:.2em 0 .4em}a{color:inherit}
 .btn{display:inline-block;background:var(--k);color:#fff;text-decoration:none;padding:.9rem 1.6rem;border-radius:999px;font-size:.88rem;font-weight:500;transition:.25s;cursor:pointer;border:1px solid var(--k)}
 .btn:hover{background:var(--g);border-color:var(--g)}.btn.sm{padding:.55rem 1.1rem;font-size:.8rem}
 .btn.ghost{background:transparent;color:var(--k)}.btn.light{background:#fff;color:var(--k)}
-.hero{min-height:min(100svh,860px);display:grid;align-items:end;position:relative;overflow:hidden}
-.hero-img{position:absolute;inset:0;background-size:cover;background-position:center;animation:kb 22s ease-in-out infinite alternate}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.96) 78%)}
-.hero-txt{position:relative;z-index:2;padding:0 1.25rem 3.5rem;max-width:1100px;margin:auto;width:100%}
+.hero{height:100vh;height:100svh;min-height:520px;display:grid;align-items:end;position:relative;overflow:hidden;background:#111}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:80%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35) 45%,rgba(0,0,0,.7))}
+.hero-txt{color:#fff;position:relative;z-index:2;padding:0 1.25rem 3.5rem;max-width:1100px;margin:auto;width:100%}
 .hero h1{font-size:clamp(3rem,11vw,6.5rem);line-height:.95;margin:.15em 0}.lead{font-size:1.15rem;margin:0 0 1.5rem}
 .cta{display:flex;flex-wrap:wrap;gap:.7rem}.note{font-size:.85rem;color:var(--g);margin-top:1.2rem}
 @keyframes kb{from{transform:scale(1.05)}to{transform:scale(1.18) translate(-2%,-2%)}}
-.intro{text-align:center;max-width:760px;font-family:"Cormorant Garamond",serif;font-size:1.45rem;line-height:1.5}
-.leaf{color:var(--g);font-size:2rem}
+.intro{position:relative;text-align:center;max-width:760px;font-family:"Cormorant Garamond",serif;font-size:1.45rem;line-height:1.5}
+.leaf{display:inline-block;width:46px;color:var(--g)}
 .tour{position:relative;border-radius:18px;overflow:hidden;background:#111;margin-top:1.5rem}
 #pano,.flat{width:100%;height:min(72vh,620px);max-height:620px}.flat{display:none;position:relative}
 .flat img{width:100%;height:100%;object-fit:cover;animation:kb 18s ease-in-out infinite alternate}
@@ -48,3 +48,16 @@ footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--m)}
 .lb img{max-width:94vw;max-height:80svh;animation:kb 14s ease-in-out infinite alternate}.lb p{color:#fff;position:absolute;bottom:1rem;width:100%;text-align:center}
 .lb button{position:absolute;background:none;border:0;color:#fff;font-size:2.6rem;cursor:pointer}.x{top:.5rem;right:1rem}.pv{left:.5rem}.nx{right:.5rem}
 .pnlm-hotspot.lnk{width:auto;height:auto;background:var(--g);color:#fff;border-radius:999px;padding:.35rem .8rem;font:500 .78rem Inter}
+.hero .eyebrow{color:#cfe3d3}.hero .note{color:#e6efe7}.hero .btn{background:#fff;color:#141414;border-color:#fff}.hero .btn:hover{background:var(--g);color:#fff;border-color:var(--g)}.hero .btn.ghost{background:transparent;color:#fff}
+.hero h1,.hero .lead{text-shadow:0 2px 18px rgba(0,0,0,.35)}
+section{position:relative}.wrap,.band>.wrap{position:relative;z-index:1}
+.bot{position:absolute;pointer-events:none;color:var(--g);z-index:0}
+.bot.tr{top:-10px;right:-20px;width:clamp(110px,22vw,260px);opacity:.16}
+.bot.bl{bottom:-10px;left:-25px;width:clamp(100px,20vw,240px);opacity:.14;transform:scaleX(-1) rotate(8deg)}
+.band.dark .bot{color:#7fa98a;opacity:.12}
+.divider{display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--g);margin:0 auto;max-width:520px;padding:0 1.25rem}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#b9cdbd,transparent)}
+.divider svg{width:70px;height:28px}
+.leafbg{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%233f6b4a' stroke-opacity='.07' stroke-width='1.2'%3E%3Cpath d='M30 120C40 80 70 60 110 50C100 90 70 112 30 120Z'/%3E%3Cpath d='M30 120L110 50'/%3E%3C/g%3E%3C/svg%3E");background-size:160px}
+@media(max-width:600px){.bot.tr{opacity:.11}.bot.bl{display:none}}
+#visite,#galerie,#equipe,#avis{overflow:hidden}.band{overflow:hidden}
